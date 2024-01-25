@@ -27,7 +27,7 @@ public class User_DBConnect implements Database<User, UserList>{
             } catch (Exception e) {
                 System.out.println(e);
             }
-            conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/test_loansystem", "root", "");
+            conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/pm_project", "root", "");
             System.out.println("Connection is created successfully:");
             stmt = (Statement) conn.createStatement();
             String query1 = "INSERT INTO user " + "VALUES ('" + user.getU_id() + "','" + user.getU_password() + "','" + user.getU_firstname() + "','" + user.getU_lastname() + "','" + user.getU_role()  + "')";
@@ -68,7 +68,7 @@ public class User_DBConnect implements Database<User, UserList>{
             } catch (Exception e) {
                 System.out.println(e);
             }
-            conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/test_loansystem", "root", "");
+            conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/pm_project", "root", "");
             System.out.println("Connection is created successfully:");
 
             stmt = conn.createStatement();
@@ -116,7 +116,7 @@ public class User_DBConnect implements Database<User, UserList>{
             } catch (Exception e) {
                 System.out.println(e);
             }
-            conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/test_loansystem", "root", "");
+            conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/pm_project", "root", "");
             System.out.println("Connection is created successfully:");
 
             stmt = conn.createStatement();

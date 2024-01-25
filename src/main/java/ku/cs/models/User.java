@@ -11,12 +11,25 @@ public class User {
 
     private String u_role;
 
-    public User(String uId, String uPassword, String uFirstname, String uLastname, String uRole) {
+    public User(String u_password, String u_firstname, String u_lastname, String u_role) {
+        this.u_password = u_password;
+        this.u_firstname = u_firstname;
+        this.u_lastname = u_lastname;
+        this.u_role = u_role;
     }
+
+    public User(String u_Id, String u_password, String u_firstname, String u_lastname, String u_role) {
+        this.u_Id = u_Id;
+        this.u_password = u_password;
+        this.u_firstname = u_firstname;
+        this.u_lastname = u_lastname;
+        this.u_role = u_role;
+    }
+
 
     //setter
     public void setU_id(UserList users) {
-        this.u_Id = "u" + String.format("%06d", users.countUsers()+1);
+        this.u_Id = "u" + String.format("%04d", users.countUsers()+1);
     }
 
 
