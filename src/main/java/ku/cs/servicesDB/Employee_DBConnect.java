@@ -25,10 +25,10 @@ public class Employee_DBConnect implements Database<Employee, EmployeeList> {
     @Override
     public Employee readRecord(String query) {
         //prepare data
-        String empId ;
-        String empName ;
-        String empJTitle ;
-        String empPassword ;
+        String empId;
+        String empName;
+        String empJTitle;
+        String empPassword;
 
         //DB connect
         try {

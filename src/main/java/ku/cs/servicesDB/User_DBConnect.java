@@ -1,25 +1,23 @@
 package ku.cs.servicesDB;
 
 import ku.cs.models.Customer;
-import ku.cs.models.CustomerList;
+import ku.cs.models.Employee;
+import ku.cs.models.User;
+import ku.cs.models.UserList;
 
 import java.sql.*;
 
-public class Customer_DBConnect implements Database<Customer, CustomerList> {
-
-
+public class User_DBConnect implements Database<User, UserList>{
     //database connect
     public Connection conn = null;
     public Statement stmt = null;
     public ResultSet rs = null;
 
     //prepare for return Customer method readData
-    private Customer customerReadDatabase;
+    private User userRecord;
 
-
-    //ใช้หน้า emp_regis
     @Override
-    public void insertDatabase(Customer customer) {
+    public void insertDatabase(User user) {
         //database connect
         Connection conn = null;
         Statement stmt = null;
@@ -29,10 +27,10 @@ public class Customer_DBConnect implements Database<Customer, CustomerList> {
             } catch (Exception e) {
                 System.out.println(e);
             }
-            conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/pm_project", "root", "");
+            conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/test_loansystem", "root", "");
             System.out.println("Connection is created successfully:");
             stmt = (Statement) conn.createStatement();
-            String query1 = "INSERT INTO customer " + "VALUES ('" + customer.getCtm_Id() + "','" + customer.getCtm_cid() + "','" + customer.getCtm_firstname() + "','" + customer.getCtm_lastname() + "','" + customer.getCtm_img() + "','" + customer.getCtm_sex() + "','" + customer.getCtm_tel() + "' ,'" + customer.getCtm_address() + "','" + customer.getCtm_workplace() + "','" + customer.getCtm_bankAccount() + "')";
+            String query1 = "INSERT INTO user " + "VALUES ('" + user.getU_id() + "','" + user.getU_password() + "','" + user.getU_firstname() + "','" + user.getU_lastname() + "','" + user.getU_role()  + "')";
             stmt.executeUpdate(query1);
             System.out.println("Record is inserted in the table successfully..................");
         } catch (Exception excep) {
@@ -53,20 +51,15 @@ public class Customer_DBConnect implements Database<Customer, CustomerList> {
         System.out.println("Please check it in the MySQL Table......... ……..");
     }
 
-
     @Override
-    public Customer readRecord(String query) {
-        //prepare data
-        String id ;
-        String cid;
-        String firstname ;
-        String lastname ;
-        String img ;
-        String sex ;
-        String tel ;
-        String address ;
-        String workplace ;
-        String bankAcc ;
+    public User readRecord(String query) {
+
+        //prepare Data
+        String u_id;
+        String u_password;
+        String u_firstname;
+        String u_lastname;
+        String u_role;
 
         //DB connect
         try {
@@ -75,36 +68,31 @@ public class Customer_DBConnect implements Database<Customer, CustomerList> {
             } catch (Exception e) {
                 System.out.println(e);
             }
-            conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/test_loansystem", "root", "");
+            conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/test_loansystem", "root", "");
             System.out.println("Connection is created successfully:");
 
             stmt = conn.createStatement();
             rs = stmt.executeQuery(query);
 
-            while (rs.next()) {
-                id = rs.getString(1);
-                cid = rs.getString(2);
-                firstname = rs.getString(3);
-                lastname = rs.getString(4);
-                img = rs.getString(5);
-                sex = rs.getString(6);
-                tel = rs.getString(7);
-                address = rs.getString(8);
-                workplace = rs.getString(9);
-                bankAcc = rs.getString(10);
+            while (rs.next()){
+                u_id = rs.getString(1);
+                u_password = rs.getNString(2);
+                u_firstname = rs.getString(3);
+                u_lastname = rs.getString(4);
+                u_role = rs.getNString(5);
 
-                this.customerReadDatabase = new Customer(id, cid, firstname, lastname, img, sex, tel, address, workplace, bankAcc);
+
+                this.userRecord = new User(u_id, u_password, u_firstname, u_lastname, u_role);
 //                System.out.println(empLoginAccount.toCsv());
             }
-            System.out.println("Account can use from jdbc");
+            System.out.println("loginAccount can use from jdbc");
         } catch (Exception excep) {
             excep.printStackTrace();
         } finally {
             try {
                 if (stmt != null)
                     conn.close();
-            } catch (SQLException se) {
-            }
+            } catch (SQLException se) {}
             try {
                 if (conn != null)
                     conn.close();
@@ -114,15 +102,12 @@ public class Customer_DBConnect implements Database<Customer, CustomerList> {
         }
         System.out.println("Please check it in the MySQL Table......... ……..");
 
-        return customerReadDatabase;
+        return userRecord;
     }
 
-
-    //return list
     @Override
-    public CustomerList readDatabase(String query) {
-
-        CustomerList list = new CustomerList();
+    public UserList readDatabase(String query) {
+        UserList list = new UserList();
 
         //DB connect
         try {
@@ -138,19 +123,14 @@ public class Customer_DBConnect implements Database<Customer, CustomerList> {
             rs = stmt.executeQuery(query);
 
             while (rs.next()) {
-                String id = rs.getString(1);
-                String cid = rs.getString(2);
-                String firstname = rs.getString(3);
-                String lastname = rs.getString(4);
-                String img = rs.getString(5);
-                String sex = rs.getString(6);
-                String tel = rs.getString(7);
-                String address = rs.getString(8);
-                String workplace = rs.getString(9);
-                String bankAcc = rs.getString(10);
+                String u_Id = rs.getString(1);
+                String u_password = rs.getString(2);
+                String u_firstname = rs.getString(3);
+                String u_lastname = rs.getString(4);
+                String u_role = rs.getString(5);
 
-                this.customerReadDatabase = new Customer(id, cid, firstname, lastname, img, sex, tel, address, workplace, bankAcc);
-                list.addCustomer(customerReadDatabase);
+                this.userRecord = new User(u_Id, u_password, u_firstname, u_lastname, u_role);
+                list.addUser(userRecord);
 //                System.out.println(empLoginAccount.toCsv());
             }
             System.out.println("list can use from jdbc");
@@ -172,14 +152,9 @@ public class Customer_DBConnect implements Database<Customer, CustomerList> {
         System.out.println("Please check it in the MySQL Table......... ……..");
 
         return list;
-
     }
 
     @Override
     public void updateDatabase(String q) {
-
     }
 }
-
-
-

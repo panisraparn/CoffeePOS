@@ -3,59 +3,108 @@ import java.sql.Blob;
 
 public class Member {
 
-    private String memberId;
-    private String firstName;
-    private String lastName;
-    private String phoneNumber;
-    private byte[] faceImage;
+    private String m_Id;
+    private String m_firstname;
+    private String m_lastname;
+    private String m_tel;
+    private Integer m_points;
 
-    // Constructor, Getter, Setter
+    private String m_date_join;
 
-    public Member(String memberId, String firstName, String lastName, String phoneNumber, byte[] faceImage) {
-        this.memberId = memberId;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.phoneNumber = phoneNumber;
-        this.faceImage = faceImage;
+    private String m_lasted;
+
+    //variable
+    int memberCount;
+
+
+    // Constructor
+
+    // Getter, Setter
+
+
+    public void setM_Id(MemberList memberList) {
+        this.m_Id = "m" + String.format("%06d", memberList.countMembers()+1);
     }
 
-    public void setMemberId(String memberId) {
-        this.memberId = memberId;
+    public void setM_firstname(String m_firstname) {
+        this.m_firstname = m_firstname;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setM_lastname(String m_lastname) {
+        this.m_lastname = m_lastname;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setM_tel(String m_tel) {
+        this.m_tel = m_tel;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setM_points(Integer m_points) {
+        this.m_points = m_points;
     }
 
-    public void setFaceImage(byte[] faceImage) {
-        this.faceImage = faceImage;
+    public void setM_date_join() {
+        long millis=System.currentTimeMillis();
+        // creating a new object of the class Dte
+        java.sql.Date date = new java.sql.Date(millis);
+        this.m_date_join = String.valueOf(date);
     }
 
-    public String getMemberId() {
-        return memberId;
+    public void setM_lasted() {
+        long millis=System.currentTimeMillis();
+        // creating a new object of the class Dte
+        java.sql.Date date = new java.sql.Date(millis);
+        this.m_lasted = String.valueOf(date);
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getM_Id() {
+        return m_Id;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getM_firstname() {
+        return m_firstname;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getM_lastname() {
+        return m_lastname;
     }
 
-    public byte[] getFaceImage() {
-        return faceImage;
+    public String getM_tel() {
+        return m_tel;
     }
+
+    public Integer getM_points() {
+        return m_points;
+    }
+
+    public String getM_date_join() {
+        return m_date_join;
+    }
+
+    public String getM_lasted() {
+        return m_lasted;
+    }
+
+    @Override
+    public String toString() {
+        return m_Id + "," + m_firstname + "," + m_lastname + "," + m_tel + "," +
+                m_points + "," + m_date_join + "," + m_lasted;
+    }
+
+    public String toCsv() {
+        return m_Id + "," + m_firstname + "," + m_lastname + "," + m_tel + "," +
+                m_points + "," + m_date_join + "," + m_lasted;
+    }
+
+    // other method
+
+//    private String DateTimeNow() {
+//        String dateTime;
+//        long millis=System.currentTimeMillis();
+//        // creating a new object of the class Dte
+//        java.sql.Date date = new java.sql.Date(millis);
+//        dateTime = String.valueOf(date);
+//        return dateTime;
+//    }
+
+
 }
